@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 def crawl(url='http://www.imdb.com', ll='7.5', ul='10.0'):
 	os.system('clear')
 	print('STARTING - ' + url)
-	print('FINDING MOVIES RATED BETWEEN ' + ll + ' and ' + ul + '...')
+	print('FINDING MOVIES RATED BETWEEN ' + str(float(ll)) + ' and ' + str(float(ul)) + ' ...')
 	dictionary = {url: True}
 	movies = []
 	print()
@@ -18,7 +18,7 @@ def crawl(url='http://www.imdb.com', ll='7.5', ul='10.0'):
 					dictionary[k] = False
 					break
 			source = requests.get(url)
-			soup = BeautifulSoup(source.text)
+			soup = BeautifulSoup(source.text, 'html.parser')
 			links = soup.select('a[href^=/title/tt]')
 			print(soup.title.string[:-7] + '  (' + str(len(movies)) + ' found)') 
 			for link in links:
